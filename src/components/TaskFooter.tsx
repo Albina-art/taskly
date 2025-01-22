@@ -4,47 +4,44 @@ import { TaskFilterValues } from '@/utils/types';
 
 const filterValues = Object.values(TaskFilterValues);
 
-interface FooterProps {
+interface TaskFooterProps {
   activeCount: number; // Количество невыполненных задач
   onFilterChange: (filter: TaskFilterValues) => void; // Изменение текущего фильтра
   onClearCompleted: () => void; // Удаление завершенных задач
   currentFilter: TaskFilterValues; // Текущий выбранный фильтр
 }
 
-const Footer = ({ activeCount, onFilterChange, onClearCompleted, currentFilter }: FooterProps) => {
+const TaskFooter = ({
+  activeCount,
+  onFilterChange,
+  onClearCompleted,
+  currentFilter,
+}: TaskFooterProps) => {
   return (
     <Box
-      display="flex"
+      className="border-t border-gray px-4 py-2  xs:flex max-xs:block"
       justifyContent="space-between"
-      alignItems="center"
-      padding="16px"
-      borderTop="1px solid #e6e6e6"
-      className="text-second">
-      <Typography>{activeCount} items left</Typography>
+      alignItems="center">
+      <Typography className="text-secondary text-sm py-1">{activeCount} items left</Typography>
       <Box display="flex" gap="8px">
         {filterValues.map((filter) => (
           <Button
-            className="text-second p-1"
+            className="text-secondary px-2 py-0 max-w-max min-w-5 border-primary normal-case"
             key={filter}
-            variant={currentFilter === filter ? 'contained' : 'text'}
-            onClick={() => onFilterChange(filter)}
-            style={{
-              textTransform: 'none',
-              fontWeight: currentFilter === filter ? 'bold' : 'normal',
-            }}>
+            variant={currentFilter === filter ? 'outlined' : 'text'}
+            onClick={() => onFilterChange(filter)}>
             {filter}
           </Button>
         ))}
       </Box>
       <Button
         variant="text"
-        color="secondary"
-        onClick={onClearCompleted}
-        style={{ textTransform: 'none' }}>
+        className="text-secondary p-1 normal-case text-sm"
+        onClick={onClearCompleted}>
         Clear completed
       </Button>
     </Box>
   );
 };
 
-export default Footer;
+export default TaskFooter;

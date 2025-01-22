@@ -1,23 +1,12 @@
-import { Geist, Geist_Mono } from 'next/font/google';
-
-import { useState } from 'react';
+import React from 'react';
 
 import Card from '@/components/Card';
-import Footer from '@/components/Footer';
+import TaskFooter from '@/components/TaskFooter';
 import { TaskFilterValues } from '@/utils/types';
 
 import TaskInput from '../components/TaskInput';
 import TaskList from '../components/TaskList';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-});
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
-});
 export interface Task {
   id: string;
   text: string;
@@ -31,17 +20,24 @@ const DEFAULT_TASKS: Task[] = [
 ];
 
 const HomePage = () => {
-  const [tasks, setTasks] = useState<Task[]>(DEFAULT_TASKS);
-  const [filter, setFilter] = useState<TaskFilterValues>(TaskFilterValues.all);
+  const [tasks, setTasks] = React.useState<Task[]>(DEFAULT_TASKS);
+  const [filter, setFilter] = React.useState<TaskFilterValues>(TaskFilterValues.all);
 
-  const handleAddTask = (text: string) => {
-    const newTask: Task = {
-      id: Date.now().toString(),
-      completed: false,
-      text,
-    };
-    setTasks((prevTasks) => [...prevTasks, newTask]);
-  };
+  const activeTaskCount = React.useMemo(() => {
+    return tasks.filter((task) => !task.completed).length;
+  }, [tasks]);
+
+  const handleAddTask = React.useCallback(
+    (text: string) => {
+      const newTask: Task = {
+        id: Date.now().toString(),
+        completed: false,
+        text,
+      };
+      setTasks((prevTasks) => [...prevTasks, newTask]);
+    },
+    [setTasks],
+  );
 
   const handleToggleTask = (id: string) => {
     setTasks((prevTasks) =>
@@ -76,12 +72,9 @@ const HomePage = () => {
   });
 
   return (
-    <div
-      className={`${geistSans.variable} ${geistMono.variable}  
-      font-[family-name:var(--font-geist-sans)]
-      flex items-center justify-center min-h-screen`}>
-      <div className="max-w-2xl w-full p-4 bg-soft-pink rounded-lg shadow-md">
-        <h1>todos</h1>
+    <div className={`w-full flex items-center justify-center min-h-screen bg-default`}>
+      <div className="w-full">
+        <h1 className="font-helvetica-neue text-primary text-center text-8xl">todos</h1>
         <Card>
           <TaskInput onAddTask={handleAddTask} />
           <TaskList
@@ -89,8 +82,8 @@ const HomePage = () => {
             onToggleTask={handleToggleTask}
             onDeleteTask={handleDeleteTask}
           />
-          <Footer
-            activeCount={tasks.filter((task) => !task.completed).length}
+          <TaskFooter
+            activeCount={activeTaskCount}
             onFilterChange={setFilter}
             onClearCompleted={handleClearCompleted}
             currentFilter={filter}

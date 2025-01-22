@@ -8,18 +8,19 @@ export default {
   ],
   theme: {
     extend: {
+      screens: {
+        xs: '500px',
+      },
       colors: {
-        background: 'var(--background)',
-        foreground: 'var(--foreground)',
-        'soft-pink': '#f5f5f5',
-        heading: '#e9d9d8',
-        second: '#9c9c9c',
+        body: '#525252', // Цвет основного текста
+        action: '#dadada', // Зачеркнутый текст и цвета иконок с действием
+        secondary: '#9f9f9f', // Второстепенный цвет
+        primary: '#e9d9d8', // Яркий акцент - это заголовок и активная кнопка
+        default: '#f5f5f5', // Фон страницы
+        input: '#fefefe',
       },
-      fontSize: {
-        heading: '100px', // Размер шрифта для заголовков
-      },
-      boxShadow: {
-        custom: '0px 4px 6px rgba(0, 0, 0, 0.3)',
+      fontFamily: {
+        'helvetica-neue': ['HelveticaNeue', 'sans-serif'],
       },
     },
   },

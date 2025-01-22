@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { Task } from '@/utils/types';
 
 import TaskItem from './TaskItem';
@@ -10,7 +12,7 @@ interface TaskListProps {
 
 const TaskList = ({ tasks, onToggleTask, onDeleteTask }: TaskListProps) => {
   return (
-    <div>
+    <React.Fragment>
       {tasks.map((task) => (
         <TaskItem
           key={task.id}
@@ -19,7 +21,7 @@ const TaskList = ({ tasks, onToggleTask, onDeleteTask }: TaskListProps) => {
           onDelete={() => onDeleteTask(task.id)}
         />
       ))}
-    </div>
+    </React.Fragment>
   );
 };
 

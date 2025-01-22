@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'HelveticaNeue';
+  src: url('/fonts/Helvetica-Neue-UltraLight.ttf') format('truetype');
+  font-weight: thin;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'HelveticaNeue';
+  src: url('/fonts/Helvetica-Neue-Thin-Italic.otf') format('truetype');
+  font-weight: thin;
+  font-style: italic;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}

@@ -1,31 +1,38 @@
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
 import { FlatCompat } from '@eslint/eslintrc';
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
+import js from '@eslint/js';
 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
+const __dirname = path.dirname(__filename);
 const compat = new FlatCompat({
   baseDirectory: __dirname,
+  recommendedConfig: js.configs.recommended,
+  allConfig: js.configs.all,
 });
 
-const eslintConfig = [
+/* eslint-disable import/no-anonymous-default-export */
+export default [
   ...compat.extends(
     'next/core-web-vitals',
     'next/typescript',
-    'plugin:prettier/recommended', // Добавляем Prettier
+    'plugin:prettier/recommended',
     'eslint:recommended',
     'plugin:react/recommended',
   ),
   {
     rules: {
-      'react/react-in-jsx-scope': 'off', // Next.js не требует импорта React
-      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }], // Игнорировать неиспользуемые аргументы с префиксом "_"
-      'prettier/prettier': ['error', { singleQuote: true }],
-      'sort-imports': 'off', // Выключаем встроенное правило ESLint, чтобы избежать конфликта
+      'react/react-in-jsx-scope': 'off',
+      'prettier/prettier': [
+        'error',
+        {
+          singleQuote: true,
+        },
+      ],
+      'no-unused-vars': ['warn', { args: 'none' }],
+      'sort-imports': 'off',
       complexity: ['error', 10],
     },
   },
 ];
-
-export default eslintConfig;
