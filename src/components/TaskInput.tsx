@@ -1,6 +1,6 @@
 import React from 'react';
 
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { KeyboardArrowDown } from '@mui/icons-material';
 import { InputAdornment, TextField } from '@mui/material';
 
 interface TaskInputProps {
@@ -17,12 +17,11 @@ const TaskInput = ({ onAddTask }: TaskInputProps) => {
         setTaskText('');
       }
     },
-    [setTaskText, onAddTask, taskText],
+    [taskText, onAddTask],
   );
 
   return (
     <TextField
-      className="bg-input py-1"
       fullWidth
       placeholder="What needs to be done?"
       value={taskText}
@@ -32,8 +31,8 @@ const TaskInput = ({ onAddTask }: TaskInputProps) => {
       slotProps={{
         input: {
           startAdornment: (
-            <InputAdornment position="start" className="p-2 m-0">
-              <KeyboardArrowDownIcon className="fill-action" />
+            <InputAdornment position="start">
+              <KeyboardArrowDown sx={{ color: 'var(--action-color)' }} />
             </InputAdornment>
           ),
         },

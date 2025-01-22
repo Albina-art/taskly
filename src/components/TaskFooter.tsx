@@ -5,10 +5,10 @@ import { TaskFilterValues } from '@/utils/types';
 const filterValues = Object.values(TaskFilterValues);
 
 interface TaskFooterProps {
-  activeCount: number; // Количество невыполненных задач
-  onFilterChange: (filter: TaskFilterValues) => void; // Изменение текущего фильтра
-  onClearCompleted: () => void; // Удаление завершенных задач
-  currentFilter: TaskFilterValues; // Текущий выбранный фильтр
+  activeCount: number;
+  onFilterChange: (filter: TaskFilterValues) => void;
+  onClearCompleted: () => void;
+  currentFilter: TaskFilterValues;
 }
 
 const TaskFooter = ({
@@ -19,25 +19,44 @@ const TaskFooter = ({
 }: TaskFooterProps) => {
   return (
     <Box
-      className="border-t border-gray px-4 py-2  xs:flex max-xs:block"
-      justifyContent="space-between"
-      alignItems="center">
-      <Typography className="text-secondary text-sm py-1">{activeCount} items left</Typography>
-      <Box display="flex" gap="8px">
+      sx={{
+        borderTop: '1px solid',
+        borderColor: 'var(--action-color)',
+        px: 2,
+        py: 1,
+        display: 'flex',
+        flexDirection: { xs: 'column', sm: 'row' },
+        justifyContent: 'space-between',
+        alignItems: 'center',
+      }}>
+      <Typography variant="body2" sx={{ color: 'var(--secondary-color)', py: 1 }}>
+        {activeCount} items left
+      </Typography>
+      <Box sx={{ display: 'flex', gap: 1 }}>
         {filterValues.map((filter) => (
           <Button
-            className="text-secondary px-2 py-0 max-w-max min-w-5 border-primary normal-case"
             key={filter}
             variant={currentFilter === filter ? 'outlined' : 'text'}
-            onClick={() => onFilterChange(filter)}>
+            onClick={() => onFilterChange(filter)}
+            sx={{
+              px: 1,
+              py: 0,
+              color: 'var(--secondary-color)',
+              borderColor: currentFilter === filter ? 'var(--primary-color)' : 'transparent',
+            }}>
             {filter}
           </Button>
         ))}
       </Box>
       <Button
         variant="text"
-        className="text-secondary p-1 normal-case text-sm"
-        onClick={onClearCompleted}>
+        onClick={onClearCompleted}
+        sx={{
+          p: 1,
+          pr: 0,
+          fontSize: '0.875rem',
+          color: 'var(--secondary-color)',
+        }}>
         Clear completed
       </Button>
     </Box>

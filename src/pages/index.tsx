@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Box, Typography } from '@mui/material';
+
 import Card from '@/components/Card';
 import TaskFooter from '@/components/TaskFooter';
 import { TaskFilterValues } from '@/utils/types';
@@ -72,9 +74,27 @@ const HomePage = () => {
   });
 
   return (
-    <div className={`w-full flex items-center justify-center min-h-screen bg-default`}>
-      <div className="w-full">
-        <h1 className="font-helvetica-neue text-primary text-center text-8xl">todos</h1>
+    <Box
+      sx={{
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        minHeight: '100vh',
+        bgcolor: 'var(--default-color)',
+      }}>
+      <Box sx={{ width: '100%' }}>
+        <Typography
+          variant="h1"
+          align="center"
+          sx={{
+            color: 'var(--primary-color)',
+            fontSize: '100px',
+            fontFamily: 'HelveticaNeue, Arial, Helvetica, sans-serif',
+            lineHeight: '100px',
+          }}>
+          todos
+        </Typography>
         <Card>
           <TaskInput onAddTask={handleAddTask} />
           <TaskList
@@ -89,8 +109,8 @@ const HomePage = () => {
             currentFilter={filter}
           />
         </Card>
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
 

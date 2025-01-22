@@ -22,7 +22,6 @@ npm run start
 
   - [TypeScript](https://www.typescriptlang.org/)
   - [React](https://reactjs.org/)
-  - [TailwindCSS](https://tailwindcss.com/)
   - [Material-UI](https://mui.com/)
 
 - **Модульная архитектура**: приложение разделено на логические компоненты, что упрощает поддержку и масштабирование.

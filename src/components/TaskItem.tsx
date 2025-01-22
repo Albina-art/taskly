@@ -15,15 +15,19 @@ const TaskItem = ({ task, onToggle, onDelete }: TaskItemProps) => {
       display="flex"
       alignItems="center"
       justifyContent="space-between"
-      className="py-1 border-t">
+      sx={{ py: 1, borderTop: '1px solid var(--action-color)' }}>
       <Box display="flex" alignItems="center">
-        <Checkbox className="mr-2" checked={task.completed} onChange={onToggle} />
-        <Typography className={task.completed ? 'line-through text-action' : 'text-body'}>
+        <Checkbox sx={{ mr: 2 }} checked={task.completed} onChange={onToggle} />
+        <Typography
+          sx={{
+            textDecoration: task.completed ? 'line-through' : 'initial',
+            color: task.completed ? 'var(--action-color)' : 'var(--body-color)',
+          }}>
           {task.text}
         </Typography>
       </Box>
-      <IconButton onClick={onDelete} className="mr-1">
-        <DeleteIcon className="fill-action" />
+      <IconButton onClick={onDelete} sx={{ mr: 1, p: 0.5, color: 'var(--action-color)' }}>
+        <DeleteIcon />
       </IconButton>
     </Box>
   );

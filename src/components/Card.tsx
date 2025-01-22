@@ -1,20 +1,45 @@
 import React from 'react';
 
-import { Paper } from '@mui/material';
+import { Paper, styled } from '@mui/material';
 
 interface CardProps {
   children: React.ReactNode;
 }
 
+const Root = styled('div')({
+  position: 'relative',
+  width: '100%',
+  maxWidth: '40rem',
+  margin: '0 auto',
+});
+
+const StyledPaper = styled(Paper)({
+  position: 'relative',
+  zIndex: 20,
+  boxShadow: '0px 2px 12px 0px rgba(156,156,156,0.4)',
+});
+
+const BackgroundPaper = styled(StyledPaper)({
+  zIndex: 10,
+  transform: 'translateY(-0.35rem) translateX(0.25rem)',
+  width: 'calc(100% - 8px)',
+  height: '0.75rem',
+});
+
+const FurtherBackgroundPaper = styled(StyledPaper)({
+  zIndex: 0,
+  transform: 'translateY(-0.7rem) translateX(0.5rem)',
+  width: 'calc(100% - 16px)',
+  height: '0.75rem',
+});
+
 const Card = ({ children }: CardProps) => {
   return (
-    <div className="relative w-full max-w-xl mx-auto">
-      <Paper className="relative z-20 shadow-[0px_2px_12px_0px_rgb(156,156,156,0.4)]">
-        {children}
-      </Paper>
-      <Paper className="relative z-10 p-1 shadow-md translate-y-[-0.35rem] w-[calc(100%-8px)] translate-x-1 h-3" />
-      <Paper className="relative z-0 p-1 shadow-md translate-y-[-0.7rem] w-[calc(100%-16px)] translate-x-2  h-3" />
-    </div>
+    <Root>
+      <StyledPaper>{children}</StyledPaper>
+      <BackgroundPaper />
+      <FurtherBackgroundPaper />
+    </Root>
   );
 };
 
