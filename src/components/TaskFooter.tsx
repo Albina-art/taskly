@@ -29,7 +29,7 @@ const TaskFooter = ({
         justifyContent: 'space-between',
         alignItems: 'center',
       }}>
-      <Typography variant="body2" sx={{ color: 'var(--secondary-color)', py: 1 }}>
+      <Typography variant="body2" sx={{ color: 'var(--body-color)', fontWeight: 100, py: 1 }}>
         {activeCount} items left
       </Typography>
       <Box sx={{ display: 'flex', gap: 1 }}>

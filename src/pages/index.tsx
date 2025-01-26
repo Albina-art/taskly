@@ -15,15 +15,22 @@ export interface Task {
   completed: boolean;
 }
 
-const DEFAULT_TASKS: Task[] = [
-  { id: '1', text: 'Тестовое задание', completed: false },
-  { id: '2', text: 'Прекрасный код', completed: true },
-  { id: '3', text: 'Покрытие тестами', completed: false },
-];
+const TASKS_STORAGE_KEY = 'tasks';
 
 const HomePage = () => {
-  const [tasks, setTasks] = React.useState<Task[]>(DEFAULT_TASKS);
+  const [tasks, setTasks] = React.useState<Task[]>([]);
   const [filter, setFilter] = React.useState<TaskFilterValues>(TaskFilterValues.all);
+
+  React.useEffect(() => {
+    const savedTodos = localStorage.getItem(TASKS_STORAGE_KEY);
+    if (savedTodos) {
+      setTasks(JSON.parse(savedTodos));
+    }
+  }, []);
+
+  React.useEffect(() => {
+    localStorage.setItem(TASKS_STORAGE_KEY, JSON.stringify(tasks));
+  }, [tasks]);
 
   const activeTaskCount = React.useMemo(() => {
     return tasks.filter((task) => !task.completed).length;
@@ -34,7 +41,7 @@ const HomePage = () => {
       const newTask: Task = {
         id: Date.now().toString(),
         completed: false,
-        text,
+        text: text.trim(),
       };
       setTasks((prevTasks) => [...prevTasks, newTask]);
     },
@@ -90,7 +97,6 @@ const HomePage = () => {
           sx={{
             color: 'var(--primary-color)',
             fontSize: '100px',
-            fontFamily: 'HelveticaNeue, Arial, Helvetica, sans-serif',
             lineHeight: '100px',
           }}>
           todos

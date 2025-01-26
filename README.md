@@ -5,7 +5,7 @@
 ## Запуск проекта:
 
 ```bash
-npm run start
+npm run dev
 ```
 
 ## Основные функции
