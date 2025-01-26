@@ -3,11 +3,18 @@ import React from 'react';
 import { KeyboardArrowDown } from '@mui/icons-material';
 import { Box, Button, InputAdornment, TextField } from '@mui/material';
 
+import { getTestId, renderTestId } from '@/utils/testId';
+
 interface TaskInputProps {
   onAddTask: (text: string) => void;
 }
 
-const TaskInput = ({ onAddTask }: TaskInputProps) => {
+const TASK_HEADER_TEST_IDS = {
+  INPUT: getTestId('TASK_HEADER_INPUT'),
+  ADD_BUTTON: getTestId('TASK_HEADER_ADD_BUTTON'),
+};
+
+const TaskHeader = ({ onAddTask }: TaskInputProps) => {
   const [taskText, setTaskText] = React.useState('');
 
   const isValidText = React.useMemo(() => taskText.length > 3, [taskText.length]);
@@ -46,17 +53,20 @@ const TaskInput = ({ onAddTask }: TaskInputProps) => {
             ),
           },
         }}
+        {...renderTestId(TASK_HEADER_TEST_IDS.INPUT)}
       />
       <Button
         onClick={handleAdd}
         sx={{
           paddingX: 2,
           color: isValidText ? 'var(--secondary-color)' : 'var(--action-color)',
-        }}>
+        }}
+        {...renderTestId(TASK_HEADER_TEST_IDS.ADD_BUTTON)}>
         Add
       </Button>
     </Box>
   );
 };
 
-export default TaskInput;
+export { TASK_HEADER_TEST_IDS };
+export default TaskHeader;
