@@ -4,9 +4,11 @@ import { Box, Typography } from '@mui/material';
 
 import Card from '@/components/Card';
 import TaskFooter from '@/components/TaskFooter';
+import { TASKS_STORAGE_KEY } from '@/utils/constants';
+import { getTestId, renderTestId } from '@/utils/testId';
 import { TaskFilterValues } from '@/utils/types';
 
-import TaskInput from '../components/TaskInput';
+import TaskHeader from '../components/TaskHeader';
 import TaskList from '../components/TaskList';
 
 export interface Task {
@@ -15,22 +17,31 @@ export interface Task {
   completed: boolean;
 }
 
-const TASKS_STORAGE_KEY = 'tasks';
+const HOME_TEST_IDS = {
+  CONTAINER: getTestId('HOME'),
+};
 
-const HomePage = () => {
+const useLocalStorageTasks = () => {
   const [tasks, setTasks] = React.useState<Task[]>([]);
-  const [filter, setFilter] = React.useState<TaskFilterValues>(TaskFilterValues.all);
 
   React.useEffect(() => {
-    const savedTodos = localStorage.getItem(TASKS_STORAGE_KEY);
-    if (savedTodos) {
-      setTasks(JSON.parse(savedTodos));
+    const savedTasks = localStorage.getItem(TASKS_STORAGE_KEY);
+
+    if (savedTasks) {
+      setTasks(JSON.parse(savedTasks));
     }
   }, []);
 
   React.useEffect(() => {
     localStorage.setItem(TASKS_STORAGE_KEY, JSON.stringify(tasks));
   }, [tasks]);
+
+  return { tasks, setTasks };
+};
+
+const HomePage = () => {
+  const { tasks, setTasks } = useLocalStorageTasks();
+  const [filter, setFilter] = React.useState<TaskFilterValues>(TaskFilterValues.all);
 
   const activeTaskCount = React.useMemo(() => {
     return tasks.filter((task) => !task.completed).length;
@@ -89,20 +100,21 @@ const HomePage = () => {
         alignItems: 'center',
         minHeight: '100vh',
         bgcolor: 'var(--default-color)',
-      }}>
+      }}
+      {...renderTestId(HOME_TEST_IDS.CONTAINER)}>
       <Box sx={{ width: '100%' }}>
         <Typography
           variant="h1"
           align="center"
           sx={{
             color: 'var(--primary-color)',
-            fontSize: '100px',
+            fontSize: '80px',
             lineHeight: '100px',
           }}>
           todos
         </Typography>
         <Card>
-          <TaskInput onAddTask={handleAddTask} />
+          <TaskHeader onAddTask={handleAddTask} />
           <TaskList
             tasks={filteredTasks}
             onToggleTask={handleToggleTask}
@@ -120,4 +132,5 @@ const HomePage = () => {
   );
 };
 
+export { HOME_TEST_IDS };
 export default HomePage;

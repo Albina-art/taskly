@@ -1,5 +1,6 @@
 import { Box, Button, Typography } from '@mui/material';
 
+import { getTestId, renderTestId } from '@/utils/testId';
 import { TaskFilterValues } from '@/utils/types';
 
 const filterValues = Object.values(TaskFilterValues);
@@ -10,6 +11,10 @@ interface TaskFooterProps {
   onClearCompleted: () => void;
   currentFilter: TaskFilterValues;
 }
+
+const TASK_FOOTER_TEST_IDS = {
+  CLEAR_BUTTON: getTestId('TASK_FOOTER_CLEAR_BUTTON'),
+};
 
 const TaskFooter = ({
   activeCount,
@@ -56,11 +61,14 @@ const TaskFooter = ({
           pr: 0,
           fontSize: '0.875rem',
           color: 'var(--secondary-color)',
-        }}>
+        }}
+        {...renderTestId(TASK_FOOTER_TEST_IDS.CLEAR_BUTTON)}>
         Clear completed
       </Button>
     </Box>
   );
 };
+
+export { TASK_FOOTER_TEST_IDS };
 
 export default TaskFooter;

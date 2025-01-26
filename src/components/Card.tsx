@@ -2,6 +2,8 @@ import React from 'react';
 
 import { Paper, styled } from '@mui/material';
 
+import { getTestId, renderTestId } from '@/utils/testId';
+
 interface CardProps {
   children: React.ReactNode;
 }
@@ -33,9 +35,13 @@ const FurtherBackgroundPaper = styled(StyledPaper)({
   height: '0.75rem',
 });
 
+const CARD_TEST_IDS = {
+  CONTAINER: getTestId('CARD'),
+};
+
 const Card = ({ children }: CardProps) => {
   return (
-    <Root>
+    <Root {...renderTestId(CARD_TEST_IDS.CONTAINER)}>
       <StyledPaper>{children}</StyledPaper>
       <BackgroundPaper />
       <FurtherBackgroundPaper />

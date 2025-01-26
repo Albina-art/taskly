@@ -9,7 +9,8 @@
     "eslint": "eslint 'src/**/*.{ts,tsx}'",
     "eslint:fix": "eslint 'src/**/*.{ts,tsx}' --fix",
     "prettier": "prettier --write 'src/**/*.{ts,tsx,json,css,md}'",
-    "prepare": "husky"
+    "prepare": "husky",
+    "test": "npx playwright test"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -21,6 +22,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
+    "@playwright/test": "^1.50.0",
     "@trivago/prettier-plugin-sort-imports": "^5.2.1",
     "@types/node": "^20",
     "@types/react": "^19",
